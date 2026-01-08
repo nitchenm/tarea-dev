@@ -2,12 +2,32 @@ from typing import List, Tuple, Dict
 import json
 
 
+#Encontrar cantidad max de rectangulos de dimensiones a y b que caben dentro de un rectangulo x e y 
 def calculate_panels(panel_width: int, panel_height: int, 
                     roof_width: int, roof_height: int) -> int:
     
     # Implementa acá tu solución
+    a = roof_width
+    b = roof_width
+
+    panels = 0
+    if  roof_height == 0 or roof_width == 0:
+        return 0
     
-    return 0
+    #vertical
+    while a >= panel_width:
+        panels += 1
+        a -= panel_width
+        column_height = roof_height - panel_height
+        while column_height >= panel_height:
+            panels += 1
+            column_height -= panel_height
+            #horizontal
+            if column_height >= panel_width:
+                while b >= panel_height:
+                    panels += 1
+                    b -= panel_height
+    return panels
 
 
 def run_tests() -> None:
